@@ -486,19 +486,6 @@ public class CircularProgressView extends View {
     }
 
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (autostartAnimation)
-            startAnimation();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        stopAnimation();
-    }
-
-    @Override
     public void setVisibility(int visibility) {
         int currentVisibility = getVisibility();
         super.setVisibility(visibility);
