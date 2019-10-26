@@ -53,16 +53,19 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) public MessageProgress(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public MessageProgress(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
-    @Override public void withOnMessageProgress(OnMessageProgressClick listener) {
+    @Override
+    public void withOnMessageProgress(OnMessageProgressClick listener) {
         this.mOnMessageProgressClick = listener;
     }
 
-    @Override public void withOnProgress(OnProgress listener) {
+    @Override
+    public void withOnProgress(OnProgress listener) {
         this.mOnProgress = listener;
     }
 
@@ -92,13 +95,15 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
 
     }
 
-    @Override public void draw(Canvas canvas) {
+    @Override
+    public void draw(Canvas canvas) {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, mPaint);
 
         super.draw(canvas);
     }
 
-    @Override public void withDrawable(@DrawableRes int res, boolean hideProgress) {
+    @Override
+    public void withDrawable(@DrawableRes int res, boolean hideProgress) {
         show();
         setForeground(AndroidUtils.getDrawable(getContext(), res));
         if (hideProgress) {
@@ -108,7 +113,8 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public void withIndeterminate(boolean b) {
+    @Override
+    public void withIndeterminate(boolean b) {
         for (int c = 0; c < getChildCount(); c++) {
             View child = getChildAt(c);
             if (child instanceof CircularProgressView) {
@@ -118,7 +124,8 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public void withDrawable(Drawable drawable, boolean hideProgress) {
+    @Override
+    public void withDrawable(Drawable drawable, boolean hideProgress) {
         if (drawable != null) {
             show();
         } else {
@@ -132,7 +139,8 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public void withProgress(int i) {
+    @Override
+    public void withProgress(int i) {
         for (int c = 0; c < getChildCount(); c++) {
             View child = getChildAt(c);
             if (child instanceof CircularProgressView) {
@@ -150,7 +158,8 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public float getProgress() {
+    @Override
+    public float getProgress() {
         for (int c = 0; c < getChildCount(); c++) {
             View child = getChildAt(c);
             if (child instanceof CircularProgressView) {
@@ -160,15 +169,18 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         return -1;
     }
 
-    @Override public void withProgressFinishedDrawable(@DrawableRes int d) {
+    @Override
+    public void withProgressFinishedDrawable(@DrawableRes int d) {
         mProgressFinishedDrawable = AndroidUtils.getDrawable(getContext(), d);
     }
 
-    @Override public void withProgressFinishedDrawable(Drawable d) {
+    @Override
+    public void withProgressFinishedDrawable(Drawable d) {
         mProgressFinishedDrawable = d;
     }
 
-    @Override public void withProgressFinishedHide() {
+    @Override
+    public void withProgressFinishedHide() {
         mProgressFinishedHide = true;
     }
 
@@ -180,7 +192,8 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         setVisibility(VISIBLE);
     }
 
-    @Override public void reset() {
+    @Override
+    public void reset() {
         mProgressFinishedHide = false;
         mProgressFinishedDrawable = null;
         mOnMessageProgressClick = null;
@@ -188,13 +201,15 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         show();
     }
 
-    @Override public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
         if (mOnMessageProgressClick != null) {
             mOnMessageProgressClick.onMessageProgressClick((MessageProgress) v);
         }
     }
 
-    @Override public void performProgress() {
+    @Override
+    public void performProgress() {
         if (mOnProgress != null) {
             mOnProgress.onProgressFinished();
         }
@@ -210,11 +225,13 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public void onProgressUpdate(float currentProgress) {
+    @Override
+    public void onProgressUpdate(float currentProgress) {
         // empty
     }
 
-    @Override public void onProgressUpdateEnd(float currentProgress) {
+    @Override
+    public void onProgressUpdateEnd(float currentProgress) {
         if (currentProgress == 100) {
             for (int c = 0; c < getChildCount(); c++) {
                 View child = getChildAt(c);
@@ -241,11 +258,13 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
         }
     }
 
-    @Override public void onAnimationReset() {
+    @Override
+    public void onAnimationReset() {
         // empty
     }
 
-    @Override public void onModeChanged(boolean isIndeterminate) {
+    @Override
+    public void onModeChanged(boolean isIndeterminate) {
         // empty
     }
 }
