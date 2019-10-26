@@ -115,13 +115,7 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
 
     @Override
     public void withIndeterminate(boolean b) {
-        for (int c = 0; c < getChildCount(); c++) {
-            View child = getChildAt(c);
-            if (child instanceof CircularProgressView) {
-                ((CircularProgressView) child).setIndeterminate(b);
-                break;
-            }
-        }
+        progressBar.setIndeterminate(b);
     }
 
     @Override
@@ -141,32 +135,23 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
 
     @Override
     public void withProgress(int i) {
-        for (int c = 0; c < getChildCount(); c++) {
-            View child = getChildAt(c);
-            if (child instanceof CircularProgressView) {
-                // while updating progress, make sure progress is visible
-                if (child.getVisibility() != VISIBLE) {
-                    child.setVisibility(VISIBLE);
-                }
-                if (((CircularProgressView) child).isIndeterminate()) {
-                    ((CircularProgressView) child).setIndeterminate(false);
-                }
-
-                ((CircularProgressView) child).setProgress(i);
-                break;
-            }
+        if (progressBar.getVisibility() != VISIBLE) {
+            progressBar.setVisibility(VISIBLE);
         }
+        if (progressBar.isIndeterminate()) {
+            progressBar.setIndeterminate(false);
+        }
+
+        progressBar.setProgress(i);
     }
 
     @Override
     public float getProgress() {
-        for (int c = 0; c < getChildCount(); c++) {
-            View child = getChildAt(c);
-            if (child instanceof CircularProgressView) {
-                return ((CircularProgressView) child).getProgress();
-            }
+        if (progressBar != null) {
+            return progressBar.getProgress();
+        } else {
+            return -1;
         }
-        return -1;
     }
 
     @Override
@@ -216,13 +201,7 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
     }
 
     protected void withHideProgress(boolean b) {
-        for (int c = 0; c < getChildCount(); c++) {
-            View child = getChildAt(c);
-            if (child instanceof CircularProgressView) {
-                child.setVisibility(b ? INVISIBLE : VISIBLE);
-                break;
-            }
-        }
+        progressBar.setVisibility(b ? INVISIBLE : VISIBLE);
     }
 
     @Override
@@ -233,23 +212,17 @@ public class MessageProgress extends FrameLayout implements IMessageProgress, Vi
     @Override
     public void onProgressUpdateEnd(float currentProgress) {
         if (currentProgress == 100) {
-            for (int c = 0; c < getChildCount(); c++) {
-                View child = getChildAt(c);
-                if (child instanceof CircularProgressView) {
-                    if (mProgressFinishedHide) {
-                        hide();
-                        return;
-                    }
-                    // if progress is 100, hide it automatically
-                    // user doesn't need to hide manually
-                    child.setVisibility(INVISIBLE);
+            if (mProgressFinishedHide) {
+                hide();
+                return;
+            }
+            // if progress is 100, hide it automatically
+            // user doesn't need to hide manually
+            progressBar.setVisibility(INVISIBLE);
 
-                    // show finished drawable if supplied
-                    if (mProgressFinishedDrawable != null) {
-                        withDrawable(mProgressFinishedDrawable, true);
-                    }
-                    break;
-                }
+            // show finished drawable if supplied
+            if (mProgressFinishedDrawable != null) {
+                withDrawable(mProgressFinishedDrawable, true);
             }
 
             if (mOnProgress != null) {
