@@ -1,10 +1,12 @@
 package net.iGap.messageprogress;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.v7.widget.AppCompatDrawableManager;
+
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.widget.AppCompatDrawableManager;
 
 /* * This is the source code of iGap for Android
  * It is licensed under GNU AGPL v3.0
@@ -15,6 +17,8 @@ import android.support.v7.widget.AppCompatDrawableManager;
  * All rights reserved. */
 
 public final class AndroidUtils {
+
+    @SuppressLint("RestrictedApi")
     public static Drawable getDrawable(Context context, @DrawableRes int res) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return context.getResources().getDrawable(res, context.getTheme());
