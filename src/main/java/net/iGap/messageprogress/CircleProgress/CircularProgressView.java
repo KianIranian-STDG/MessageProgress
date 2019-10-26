@@ -422,7 +422,7 @@ public class CircularProgressView extends View {
             indeterminateAnimator.cancel();
             indeterminateAnimator = null;
         }
-        actualProgress = 0f;
+        actualProgress = currentProgress;
     }
 
     // Creates the animators for one step of the animation
